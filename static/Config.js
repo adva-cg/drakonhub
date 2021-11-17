@@ -57,7 +57,8 @@ var Config = {
 	
 	FONT_TIMEOUT: 15,
 	SEARCH_PERIOD: 200,
-	DIAGRAM_VERSION: 20180619
+	DIAGRAM_VERSION: 20180619,
+	dead: false
 };
 
 var Const = {
@@ -80,5 +81,6 @@ var Const = {
 	LINE_START: "LINE_START",
 	LINE_END: "LINE_END",
 	DRN_MOVE_ALL: "DRN_MOVE_ALL",
-	LINK: "LINK"
+	LINK: "LINK",
+	SUB: "SUB"
 };
