@@ -1728,6 +1728,8 @@ function initControls(wide, isTryMe) {
     folders.id = "middle_folder"
     var diagram = makeDiagramDesc()
     diagram.id = "middle_diagram"
+    var drakon2 = makeDiagramDesc()
+    drakon2.id = "middle_drakon2"
     var trash = makeRubbishListDesc()
     trash.id = "middle_trash"
     var dashboard = makeDashboardDesc()
@@ -1749,7 +1751,7 @@ function initControls(wide, isTryMe) {
     		{type:"text", width:"100%"}
     	]
     }
-    var middles = [folders, diagram, spacesGrid,
+    var middles = [folders, diagram, drakon2, spacesGrid,
        trash, mrecentGrid, dashboard]
     var rootNode = {
     	type: "vdock",
@@ -1820,15 +1822,23 @@ function isDrakon() {
 
 function isEditorOn() {
     var current = self.logic.getCurrent()
-    if (((current.screen == "middle_diagram") && (!(HtmlUtils.hasPopup()))) && (!(isCentralVisible()))) {
-        var editor = getEditor()
-        if (editor.isDragOn()) {
-            return false
-        } else {
-            return true
-        }
-    } else {
+    if ((HtmlUtils.hasPopup()) || (isCentralVisible())) {
         return false
+    } else {
+        if (current.screen == "middle_drakon2") {
+            return true
+        } else {
+            if (current.screen == "middle_diagram") {
+                var editor = getEditor()
+                if (editor.isDragOn()) {
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                return false
+            }
+        }
     }
 }
 
@@ -1839,7 +1849,7 @@ function isMind() {
 
 function isReadonly() {
     var current = self.logic.getCurrent()
-    if ((current.screen == "middle_diagram") && (!(current.isReadonly))) {
+    if (((current.screen == "middle_diagram") || (current.screen == "middle_drakon2")) && (!(current.isReadonly))) {
         return false
     } else {
         return true
@@ -2435,6 +2445,16 @@ function makeTopWidgetsDesc() {
     	style:{borderRadius:radius},
     	tooltip: "MES_REDO"
     }
+    var downloadButton = {
+    	hPadding:8, vPadding:8,
+    	signalId: "downloadDiagram",
+    	type: "text_button",
+    	text:"MES_DOWNLOAD_DIAGRAM",
+    	style: createStyle,
+    	tooltip: translate("MES_DOWNLOAD_DIAGRAM_AS"),
+    	customWidth: 150
+    }
+    var down2 = Utils.copyObject(downloadButton)
     var exp = {
     	hPadding:buttonMargin, vPadding:buttonMargin,
     	signalId: "exportButton",
@@ -2537,12 +2557,25 @@ function makeTopWidgetsDesc() {
     	type: "hdock",
     	height: TopPanelHeight,
     	lefts: [mainMenu, create, undoButton, 
-    redoButton, exp, share, folder],
+    redoButton, downloadButton, exp, share, folder],
     	rights: rights,
     	style:{background:DarkBackground},
     	center: {
     		type: "path",
     		id: "foldersTopPath"
+    	}
+    }
+    var drakon2Top = {
+    	id: "top_drakon2",
+    	type: "hdock",
+    	height: TopPanelHeight,
+    	lefts: [mainMenu, create, undoButton, 
+    redoButton, exp, share, folder],
+    	rights: rights,
+    	style:{background:DarkBackground},
+    	center: {
+    		type: "path",
+    		id: "drakon2TopPath"
     	}
     }
     var fSpacer = {
@@ -2574,6 +2607,10 @@ function makeTopWidgetsDesc() {
     }
     var exp2 = Utils.copyObject(exp)
     exp2.id = "export_button_ro"
+    var expd2 = Utils.copyObject(exp)
+    expd2.id = "export_button_d2_ro"
+    var expd22 = Utils.copyObject(exp)
+    expd22.id = "export_button_d22_ro"
     var oneButtSpace = {
     	type: "dummy",
     	width: 46
@@ -2582,7 +2619,18 @@ function makeTopWidgetsDesc() {
     	id: "top_diagram_ro",
     	type: "hdock",
     	height: TopPanelHeight,
-    	lefts: [mainMenu, exp2, share, folder],
+    	lefts: [mainMenu, down2, exp2, share, folder],
+    	rights: rights,
+    	style:{background:DarkBackground},
+    	center: {
+    		type: "path"
+    	}
+    }
+    var drakon2TopRo = {
+    	id: "top_drakon2_ro",
+    	type: "hdock",
+    	height: TopPanelHeight,
+    	lefts: [mainMenu, expd2, share, folder],
     	rights: rights,
     	style:{background:DarkBackground},
     	center: {
@@ -2625,6 +2673,17 @@ function makeTopWidgetsDesc() {
     	style: saveStyle,
     	tooltip: translate("MES_SAVE_OWN"),
     	customWidth: 100
+    }
+    var drakon2TopNu = {
+    	id: "top_drakon2_nu",
+    	type: "hdock",
+    	height: TopPanelHeight,
+    	lefts: [mainMenu, saveButton, expd22, share, folder],
+    	rights: [help, search],
+    	style:{background:DarkBackground},
+    	center: {
+    		type: "path"
+    	}
     }
     var diagramTopNu = {
     	id: "top_diagram_nu",
@@ -2680,6 +2739,7 @@ function makeTopWidgetsDesc() {
     	style:{background: "#ffd0d0"}
     }
     return [dummy, spacesTop, folderTop, diagramTop, 
+      drakon2Top, drakon2TopNu, drakon2TopRo,
       empty, folderTopRo, diagramTopRo, 
       folderTopNu, diagramTopNu, spacesTopNu,
       diagramTopTry]
