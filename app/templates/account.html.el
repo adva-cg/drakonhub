@@ -754,16 +754,12 @@ h2 {
 			<tr style="height:60px;">
 				<td style="width:185px;">
 					<a href="/">
-						<img src="/static/logo-text-img-s-2-hub.png" width="140" height="40" alt="DrakonHub logo" draggable="false" style="vertical-align: middle; margin-left:5px;"></img>
+						<img src="/static/logo-text-img-s-2-hub.png" width="140" height="40" alt="<%=application%> logo" draggable="false" style="vertical-align: middle; margin-left:5px;"></img>
 					</a>
 				</td>
 
 				<td style="width:100%; text-align:right;">
-					% if not on_premises then
-					<span class="top_menu_item tech"><a href="https://drakon.tech/">Drakon.Tech</a></span>
-					<span class="top_menu_item"><a href="/drakonhub-source">Source</a></span>
-					% end
-					<span class="top_menu_item"><a href="https://drakonhub.com/read/docs"><%=trans("Documentation")%></a></span>
+					<span class="top_menu_item"><a href="/read/docs"><%=trans("Documentation")%></a></span>
 					% if user_id == "" then
 
 					% else
@@ -784,7 +780,7 @@ h2 {
 			<tr style="height:50px;">
 				<td style="width:185px;">
 					<a href="/">
-						<img src="/static/logo-text-img-s-hub.png" width="120" height="40" alt="DrakonHub logo" draggable="false" style="vertical-align: middle; margin-left:5px;"></img>
+						<img src="/static/logo-text-img-s-hub.png" width="120" height="40" alt="<%=application%> logo" draggable="false" style="vertical-align: middle; margin-left:5px;"></img>
 					</a>
 				</td>
 
@@ -969,7 +965,7 @@ h2 {
 		<tr style="height:50px;">
 			<td style="width:185px;">
 				<a href="/">
-					<img src="/static/logo-text-img-s-hub.png" width="120" height="40" alt="DrakonHub logo" draggable="false" style="vertical-align: middle; margin-left:5px;"></img>
+					<img src="/static/logo-text-img-s-hub.png" width="120" height="40" alt="<%=application%> logo" draggable="false" style="vertical-align: middle; margin-left:5px;"></img>
 				</a>
 			</td>
 
@@ -985,12 +981,9 @@ h2 {
 	% else
 	<a href="/ide/dashboard" class="mob_menu_item_link" style="font-weight:bold;"><%=trans("MES_MY_DIAGRAMS")%></a>
 	% end	
-	
-	% if not on_premises then
-	<a href="https://drakon.tech/" class="mob_menu_item_link" >Drakon.Tech</a>
-	<a href="/drakonhub-source" class="mob_menu_item_link" >Source</a>
-	% end
-	<a href="https://drakonhub.com/read/docs" class="mob_menu_item_link" ><%=trans("Documentation")%></a>
+
+
+	<a href="/read/docs" class="mob_menu_item_link" ><%=trans("Documentation")%></a>
 	
 	% if user_id == "" then
 	<a href="/logon" class="mob_menu_item_link" id="logon_mob"><%=trans("Login")%></a>

@@ -1,4 +1,4 @@
-function Ide3Logic(gUserId, browser, translate) {
+function Ide3Logic(gUserId, browser, translate, appName) {
 
 var IDE = "ide"
 
@@ -6,7 +6,7 @@ var MinSplitter = 30
 var ProjectsPath = "/" + IDE + "/spaces"
 
 var globs = null
-var AppName = "DrakonHub"
+var AppName = appName
 
 var PollInterval = 1
 var MaxSaveItems = 30
@@ -2850,7 +2850,7 @@ function buildMainMenu() {
         	}
         )
     }
-    var host = "https://drakonhub.com"
+    var host = "/read"
     var learnItems = []
     if (shouldShowDemo()) {
         learnItems.push(
@@ -2863,7 +2863,7 @@ function buildMainMenu() {
     pushMenuItem(
         learnItems,
         "MES_DOCUMENTATION",
-        host + "/read/docs"
+        host + "/docs"
     )
     if (isDiagram()) {
         _sw68970000_ = globs.current.type;
@@ -2883,22 +2883,12 @@ function buildMainMenu() {
                 "title-drakon-reference",
                 host + "/drakon-reference"
             )
-            pushMenuItem(
-                learnItems,
-                "title-how-to-flowchart",
-                host + "/how-to-flowchart"
-            )
         } else {
             if (_sw68970000_ === "mind") {
                 pushMenuItem(
                     learnItems,
                     "title-video-how-to-mind-map",
                     host + "/video-how-to-mind-map"
-                )
-                pushMenuItem(
-                    learnItems,
-                    "title-how-to-mind-map",
-                    host + "/how-to-mind-map"
                 )
             } else {
                 pushMenuItem(
@@ -4124,15 +4114,11 @@ function initNormal(parts, target) {
 }
 
 function initTryMe(target) {
-    if (gUserId) {
-        browser.goToUrl("/")
-    } else {
-        startMachine(
-            new TryMeLoader(),
-            null,
-            target
-        )
-    }
+    startMachine(
+        new TryMeLoader(),
+        null,
+        target
+    )
 }
 
 function isAnyCurrent(folders) {
